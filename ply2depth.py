@@ -65,10 +65,10 @@ def main():
                         help='Output image width (default: 512)')
     parser.add_argument('--height', type=int, default=288,
                         help='Output image height (default: 288)')
-    parser.add_argument('--fx', type=float, default=200,
-                        help='Focal length in x direction (default: 200)')
-    parser.add_argument('--fy', type=float, default=200,
-                        help='Focal length in y direction (default: 200)')
+    parser.add_argument('--fx', type=float, default=500,
+                        help='Focal length in x direction (default: 500)')
+    parser.add_argument('--fy', type=float, default=500,
+                        help='Focal length in y direction (default: 500)')
     parser.add_argument('--rx', type=float, default=90,
                         help='Rotation angle around x-axis in degrees (default: 90)')
     parser.add_argument('--ry', type=float, default=0,
