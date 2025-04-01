@@ -1,6 +1,7 @@
 import sys
 import pyzed.sl as sl
 import re
+import argparse
 
 def modify_ply_header(filename):
     with open(filename, 'r') as f:
@@ -16,8 +17,14 @@ def modify_ply_header(filename):
         f.writelines(lines)
 
 def main():
+    parser = argparse.ArgumentParser(description='Convert SVO file to PLY files')
+    parser.add_argument('svo_file', help='Path to the SVO file')
+    parser.add_argument('--frame-interval', type=int, default=60,
+                        help='Interval between frames to save (default: 60)')
+    args = parser.parse_args()
+
     init_params = sl.InitParameters()
-    init_params.set_from_svo_file("/home/timli/Downloads/svo2ply/HD720_SN37474702_10-34-07.svo")  
+    init_params.set_from_svo_file(args.svo_file)
     init_params.coordinate_units = sl.UNIT.METER
     init_params.coordinate_system = sl.COORDINATE_SYSTEM.RIGHT_HANDED_Z_UP
     init_params.depth_mode = sl.DEPTH_MODE.ULTRA
@@ -35,7 +42,7 @@ def main():
     while True:
         if zed.grab(runtime_parameters) == sl.ERROR_CODE.SUCCESS:
             frame_count += 1
-            if(frame_count % 60 != 0):
+            if(frame_count % args.frame_interval != 0):
                 continue
             zed.retrieve_measure(point_cloud, sl.MEASURE.XYZRGBA)
             
