@@ -46,8 +46,15 @@ python ply2depth.py [选项]
 - `--rz`：绕z轴旋转角度（度），默认为0
 
 示例：
+
+1. 使用默认参数（推荐）：
 ```bash
-python ply2depth.py --input-dir ./ply_files --width 640 --height 480 --fx 300 --fy 300 --rx 90 --ry 0 --rz 0
+python ply2depth.py --input-dir ./ply_files
+```
+
+2. 自定义分辨率和FOV：
+```bash
+python ply2depth.py --input-dir ./ply_files --width 640 --height 480 --fx 300 --fy 300
 ```
 
 ## 输出文件
