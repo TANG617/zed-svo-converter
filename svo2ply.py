@@ -18,8 +18,8 @@ def modify_ply_header(filename):
 
 def main():
     parser = argparse.ArgumentParser(description='Convert SVO file to PLY files')
-    parser.add_argument('svo_file', help='Path to the SVO file')
-    parser.add_argument('--frame-interval', type=int, default=60,
+    parser.add_argument('--svo_file', help='Path to the SVO file', default="/home/timli/Downloads/svo2ply/HD720_SN37474702_10-34-07.svo")
+    parser.add_argument('--frame-interval', type=int, default=600,
                         help='Interval between frames to save (default: 60)')
     args = parser.parse_args()
 
@@ -27,7 +27,7 @@ def main():
     init_params.set_from_svo_file(args.svo_file)
     init_params.coordinate_units = sl.UNIT.METER
     init_params.coordinate_system = sl.COORDINATE_SYSTEM.RIGHT_HANDED_Z_UP
-    init_params.depth_mode = sl.DEPTH_MODE.ULTRA
+    init_params.depth_mode = sl.DEPTH_MODE.NEURAL_PLUS
 
     zed = sl.Camera()
     status = zed.open(init_params)

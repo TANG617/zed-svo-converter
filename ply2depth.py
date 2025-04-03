@@ -61,10 +61,10 @@ def main():
     parser = argparse.ArgumentParser(description='Convert PLY files to depth and RGB images')
     parser.add_argument('--input-dir', default='.',
                         help='Directory containing PLY files (default: current directory)')
-    parser.add_argument('--width', type=int, default=512,
-                        help='Output image width (default: 512)')
-    parser.add_argument('--height', type=int, default=288,
-                        help='Output image height (default: 288)')
+    parser.add_argument('--width', type=int, default=640,
+                        help='Output image width (default: 640)')
+    parser.add_argument('--height', type=int, default=360,
+                        help='Output image height (default: 360)')
     parser.add_argument('--fx', type=float, default=500,
                         help='Focal length in x direction (default: 500)')
     parser.add_argument('--fy', type=float, default=500,
