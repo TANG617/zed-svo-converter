@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import argparse
 import os
 import glob
+import cv2
 
 def process_svo_file(svo_file, frame_interval, output_dir):
     init_params = sl.InitParameters()
@@ -37,21 +38,18 @@ def process_svo_file(svo_file, frame_interval, output_dir):
             image_array = image.get_data()
 
             min_depth = 0.3
-            max_depth = 13.0
+            max_depth = 20.0
             
-            depth_array[depth_array == 0] = min_depth
-            depth_array[depth_array == np.inf] = min_depth
-            depth_array[depth_array == -np.inf] = min_depth
+            depth_array[depth_array == 0] = max_depth
+            depth_array[depth_array == np.inf] = max_depth
+            depth_array[depth_array == -np.inf] = max_depth
             
             depth_array = np.clip(depth_array, min_depth, max_depth)
             
-            depth_array = max_depth - depth_array
+            depth_mm = (depth_array * 1000).astype(np.uint16)
             
-            depth_normalized = 255 - ( (depth_array - min_depth) * 255 / 
-                              (max_depth - min_depth)).astype(np.uint8)
-
             depth_file = os.path.join(output_dir + "/depth", f"depth_{frame_count:04d}.png")
-            plt.imsave(depth_file, depth_normalized, cmap='gray')
+            cv2.imwrite(depth_file, depth_mm)
             print(f"Saved depth image: {depth_file}")
 
             rgb_file = os.path.join(output_dir + "/rgb", f"rgb_{frame_count:04d}.png")
