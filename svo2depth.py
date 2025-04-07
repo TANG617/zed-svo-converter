@@ -37,17 +37,17 @@ def process_svo_file(svo_file, frame_interval, output_dir):
             image_array = image.get_data()
 
             min_depth = 0.3
-            max_depth = 10.0
+            max_depth = 13.0
             
-            depth_array[depth_array == 0] = max_depth
-            depth_array[depth_array == np.inf] = max_depth
-            depth_array[depth_array == -np.inf] = max_depth
+            depth_array[depth_array == 0] = min_depth
+            depth_array[depth_array == np.inf] = min_depth
+            depth_array[depth_array == -np.inf] = min_depth
             
             depth_array = np.clip(depth_array, min_depth, max_depth)
             
             depth_array = max_depth - depth_array
             
-            depth_normalized = ((depth_array - min_depth) * 255 / 
+            depth_normalized = 255 - ( (depth_array - min_depth) * 255 / 
                               (max_depth - min_depth)).astype(np.uint8)
 
             depth_file = os.path.join(output_dir + "/depth", f"depth_{frame_count:04d}.png")
